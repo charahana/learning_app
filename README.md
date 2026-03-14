@@ -39,7 +39,7 @@ Railsの基礎理解を深めるため、実務でよく使われる以下の要
 - JavaScript（jQuery）
 
 ## ER図
-![ER Diagram](docs/learningアプリ_ER図.drawio.svg.svg)
+![ER Diagram](docs/learningアプリ_ER図.drawio.svg)
 ​
 ## 開発環境
 - OS：Linux(CentOS)
