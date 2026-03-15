@@ -1,0 +1,40 @@
+<%= form_with model: question do |f| %>
+  <div>
+    <%= f.label :question_text, "問題文" %><br>
+    <%= f.text_area :question_text %>
+  </div>
+
+  <div>
+    <%= f.label :choice1 %>
+    <%= f.text_field :choice1 %>
+  </div>
+
+  <div>
+    <%= f.label :choice2 %>
+    <%= f.text_field :choice2 %>
+  </div>
+
+  <div>
+    <%= f.label :choice3 %>
+    <%= f.text_field :choice3 %>
+  </div>
+
+  <div>
+    <%= f.label :choice4 %>
+    <%= f.text_field :choice4 %>
+  </div>
+
+  <div>
+    <%= f.label :correct_answer %>
+    <%= f.number_field :correct_answer %>
+  </div>
+
+  <div>
+    <%= f.label :explanation, "解説" %>
+    <%= f.text_area :explanation %>
+  </div>
+
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

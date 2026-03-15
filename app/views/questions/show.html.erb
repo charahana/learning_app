@@ -1,0 +1,15 @@
+<h1>問題詳細</h1>
+<p>問題</p>
+<p><%= question.question_text %></p>
+<ul>
+  <li><%= @question.choice1 %></li>
+  <li><%= @question.choice2 %></li>
+  <li><%= @question.choice3 %></li>
+  <li><%= @question.choice4 %></li>
+</ul>
+<p>正解</p>
+<p><%= @question.correct_answer %></p>
+<p>解説</p>
+<p><%= @question.explanation %></p>
+<%= link_to "編集", edit_question_path(@question) %> |
+<%= link_to "一覧に戻る", questions_path %>
