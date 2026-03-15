@@ -1,0 +1,22 @@
+<h1>問題一覧</h1>
+<%= link_to "問題作成", new_question_path %>
+<table>
+  <thead>
+    <tr>
+      <th>問題</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @questions.each do |question| %>
+      <tr>
+        <td><%= question.question_text %></td>
+        <td>
+          <%= link_to "詳細", question_path(question) %>
+          <%= link_to "編集", edit_question_path(question) %>
+          <%= link_to "削除", question_path(question), method: :delete, data: { confirm: "削除しますか？" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
