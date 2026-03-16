@@ -1,15 +1,37 @@
-<h1>問題詳細</h1>
-<p>問題</p>
-<p><%= question.question_text %></p>
-<ul>
-  <li><%= @question.choice1 %></li>
-  <li><%= @question.choice2 %></li>
-  <li><%= @question.choice3 %></li>
-  <li><%= @question.choice4 %></li>
-</ul>
-<p>正解</p>
-<p><%= @question.correct_answer %></p>
-<p>解説</p>
-<p><%= @question.explanation %></p>
-<%= link_to "編集", edit_question_path(@question) %> |
-<%= link_to "一覧に戻る", questions_path %>
+<h3>回答する</h3>
+<&= form_with url: question_answers_path(@question), method: :post do %>
+<div>
+  <label>
+    <%= radio_button_tag :selected_answer, 1 %>
+    <%= @question.choice1 %>
+  <\label>
+</div>
+<div>
+  <label>
+    <%= radio_button_tag :selected_answer, 2 %>
+    <%= @question.choice2 %>
+  </labal>
+</div>
+<div>
+  <label>
+    <%= radio_button_tag :selected_answer, 3 %>
+    <%= @question.choice3 %>
+  </label>
+</div>
+<div>
+  <label>
+    <%= radio_button_tag :selected_answer, 4 %>
+    <%= @question.choice4 %>
+  </label>
+</div>
+<% if @question.answers.where(user: current_user).exists? %>
+  <% answer = @question.answers.where(user: current_user).last %>
+  <p>あなたの回答: <%= answer.selected_answer %></p>
+  <% if answer.selected_answer == @question.correct_answer %>
+    <p style="color:green">正解です！</p>
+  <% else %>
+    <p style="color:red">不正解</p>
+    <p>正解: <%= @question.correct_answer %></p>
+  <% end %>
+  <p>解説: <%= @question.explanation %></p>
+<% end %>
