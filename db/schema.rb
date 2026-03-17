@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2026_03_17_014653) do
   end
 
   create_table "questions", force: :cascade do |t|
+    t.integer "category_id", null: false
     t.text "question_text"
     t.string "choice1"
     t.string "choice2"
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(version: 2026_03_17_014653) do
     t.text "explanation"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_questions_on_category_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -55,4 +57,5 @@ ActiveRecord::Schema.define(version: 2026_03_17_014653) do
 
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
+  add_foreign_key "questions", "categories"
 end
