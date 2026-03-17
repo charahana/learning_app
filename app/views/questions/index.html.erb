@@ -11,6 +11,7 @@
     <% @questions.each do |question| %>
       <tr>
         <td><%= question.question_text %></td>
+        <td><%= question.category.name %></td>
         <td>
           <%= link_to "詳細", question_path(question) %>
           <%= link_to "編集", edit_question_path(question) %>
