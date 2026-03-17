@@ -7,4 +7,8 @@ class AnswersController < ApplicationController
     @answer.save
     redirect_to question_path(@question), notice: "回答しました"
   end
+
+  def index
+    @answers = current_user.answers.includes(:question)
+  end
 end
