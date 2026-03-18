@@ -1,5 +1,7 @@
 class ScoresController < ApplicationController
-  def index
+  before_action :authenticate_user!
+  
+  def show
     answers = current_user.answers.joins(:question)
     @total = ansers.count
     @corrent = ansers.where("selected_answer = questions.correct_answer").count
