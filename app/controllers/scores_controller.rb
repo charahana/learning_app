@@ -3,8 +3,8 @@ class ScoresController < ApplicationController
   
   def show
     answers = current_user.answers.joins(:question)
-    @total = ansers.count
-    @corrent = ansers.where("selected_answer = questions.correct_answer").count
+    @total = answers.count
+    @corrent = answers.where("selected_answer = questions.correct_answer").count
     @accuracy =
       if @total > 0
         (@correct.to_f / @total * 100.round(1))
