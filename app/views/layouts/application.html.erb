@@ -5,19 +5,76 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    
+    <script src="https://kit.fontawesome.com/54104fd427.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= link_to 'アプリ説明', about_path %>
-    <%= link_to '問題作成', new_question_path %>
-    <%= link_to '問題一覧', questions_path %>
-    <%= link_to '回答履歴', answers_path %>
-    <%= link_to '成績', score_path %>
-    <%= link_to '新規登録', new_user_registration_path %>
-    <%= link_to 'ログイン', new_user_session_path %>
-    <%= yield %>
+  <body class="d-flex flex-column min-vh-100 bg-light">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: #ff7f50;">
+        <div class="container">
+          <%= link_to "ITパスポート問題集", root_path, class: "navbar-brand fw-bold" %>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <% if user_signed_in? %>
+                <li class="nav-item d-flex align-items-center fw-bold mx-2" style="color: #ffd54f">
+                  <i class="fa-solid fa-user me-1"></i>
+                  <%= current_user.name %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to 'アプリ説明', about_path, class: "nav-link text-white" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to '問題一覧', questions_path, class: "nav-link text-white" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to '問題作成', new_question_path, class: "nav-link text-white" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to '回答履歴', answers_path, class: "nav-link text-white" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to '成績', score_path, class: "nav-link text-white" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link text-white" %>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                  <%= link_to '新規登録', new_user_registration_path, class: "nav-link text-white" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to 'ログイン', new_user_session_path, class: "nav-link text-white" %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="flex-grow-1">
+      <div class="container py-4">
+        <% flash.each do |key, message| %>
+          <div class="alert alert-<%= key == "notice" ? "success" : "danger" %> alert-dismissible fade show" role="alert">
+            <%= message %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <% end %>
+        <%= yield %>
+      </div>
+    </main>
+    <footer class="bg-dark text-light py-4 mt-auto">
+      <div class="container text-center">
+        <p class="mb-1">© 2026 Learning_App</p>
+        <p class="small text-muted">Developed by Chara</p>
+      </div>
+    </footer>
   </body>
 </html>
