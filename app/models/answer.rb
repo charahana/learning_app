@@ -2,5 +2,5 @@ class Answer < ApplicationRecord
   belongs_to :user
   belongs_to :question
 
-  validates :selected_answer, presence: true
+  validates :user_id, uniqueness: { scope: :question_id }
 end
