@@ -1,6 +1,7 @@
 class Question < ApplicationRecord
   belongs_to :category
   has_many :answers, dependent: :destroy
+  has_many :choices, dependent: :destroy
 
   validates :question_text, presence: true
   validates :choice1, presence: true
