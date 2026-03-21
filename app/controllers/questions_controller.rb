@@ -11,6 +11,7 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
+    4.times { @question.choices.build }
   end
 
   def create
@@ -24,6 +25,7 @@ class QuestionsController < ApplicationController
 
   def edit
     @question = Question.find(params[:id])
+    (4 - @question.choices.size).times { @question.choices.build }
   end
 
   def update
