@@ -44,6 +44,6 @@ class QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).parmit(:question_text, :choice1, :choice2, :choice3, :choice4, :correct_answer, :explanation)
+    params.require(:question).permit(:question_text, :explanation)
   end
 end
