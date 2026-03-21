@@ -3,7 +3,7 @@ class CreateChoices < ActiveRecord::Migration[6.1]
     create_table :choices do |t|
       t.references :question, null: false, foreign_key: true
       t.string :content
-      t.boolean :is_correct
+      t.boolean :is_correct, null: false
 
       t.timestamps
     end

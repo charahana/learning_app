@@ -10,14 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_03_17_014653) do
+ActiveRecord::Schema.define(version: 2026_03_21_115342) do
 
   create_table "answers", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "question_id", null: false
-    t.integer "selected_answer"
+    t.integer "choice_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["choice_id"], name: "index_answers_on_choice_id"
     t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["user_id"], name: "index_answers_on_user_id"
   end
@@ -28,14 +29,18 @@ ActiveRecord::Schema.define(version: 2026_03_17_014653) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "choices", force: :cascade do |t|
+    t.integer "question_id", null: false
+    t.string "content"
+    t.boolean "is_correct", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_choices_on_question_id"
+  end
+
   create_table "questions", force: :cascade do |t|
     t.integer "category_id", null: false
     t.text "question_text"
-    t.string "choice1"
-    t.string "choice2"
-    t.string "choice3"
-    t.string "choice4"
-    t.integer "correct_answer"
     t.text "explanation"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -55,7 +60,9 @@ ActiveRecord::Schema.define(version: 2026_03_17_014653) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "answers", "choices"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
+  add_foreign_key "choices", "questions"
   add_foreign_key "questions", "categories"
 end
