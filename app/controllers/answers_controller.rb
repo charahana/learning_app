@@ -3,12 +3,21 @@ class AnswersController < ApplicationController
 
   def create
     @question = Question.find(params[:question_id])
-    @answer = Answer.new(user: current_user, question: @question, selected_answer: params[:selected_answer])
-    @answer.save
-    redirect_to question_path(@question), notice: "回答しました"
+    @answer = current_user.answers.build(question: @question, choice_id: answer_params[:choice_id])
+    if @answer.save
+      redirect_to @question, notice: "回答しました"
+    else
+      redirect_to @question, alert: "回答に失敗しました"
+    end
   end
 
   def index
-    @answers = current_user.answers.includes(:question)
+    @answers = current_user.answers.includes(:question, :choice)
+  end
+
+  private
+
+  def answer_params
+    params.require(:answer).permit(:choice_id)
   end
 end
