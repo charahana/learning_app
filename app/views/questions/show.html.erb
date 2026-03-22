@@ -1,22 +1,45 @@
-<h3>回答する</h3>
-<%= form_with url: question_answers_path(@question), method: :post do %>
-  <% @question.choices.each do |choice| %>
-    <div>
-      <label>
-        <%= f.radio_button :choice_id, choice.id %>
-        <%= choice.content %>
-      </label>
+<div class="container mt-4">
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">問題</h5>
+      <p class="card-text"><%= @question.question_text %></p>
     </div>
-  <% end %>
-  <% if @question.answers.where(user: current_user).exists? %>
-    <% answer = @question.answers.where(user: current_user) %>
-    <p>あなたの回答: <%= answer.choice.content %></p>
-    <% if answer.choice.is_correct %>
-      <p style="color:green">正解です！</p>
-    <% else %>
-      <p style="color:red">不正解</p>
-      <p>正解: <%= @question.choices.find_by(is_correct: true).content %></p>
-    <% end %>
-    <p>解説: <%= @question.explanation %></p>
-  <% end %>
+  </div>
+  <% user_answer = @question.answers.find_by(user: current_user) %>
+  <% unless user_answer %>
+    <div class="card mb-4">
+      <div class="card-body">
+        <h6>回答する</h6>
+        <%= form_with model: [@question, Answer.new] do |f| %>
+          <div class="list-group">
+            <% @question.choices.each do |choice| %>
+              <label class="list-group-item">
+                <%= f.radio_button :choice_id, choice.id %>
+                <%= choice.content %>
+              </label>
+            <% end %>
+          </div>
+          <%= f.submit "回答する", class: "btn btn-primary mt-3" %>
+        <% end %>
+      <% if user_answer %>
+        <div class="card mb-4">
+            <div class="card-body">
+              <h6>あなたの回答</h6>
+              <p><%= user_answer.choice.content %></p>
+              <% if user_answer.choice.is_correct %>
+                <div class="alert alert-success">正解です！</div>
+              <% else %>
+                <div class="alert alert-danger">不正解</div>
+                <p>正解: <%= @question.choices.find_by(is_correct: true).content %></p>
+              <% end %>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h6>解説</h6>
+              <p><%= @question.explanation %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
 <% end %>
