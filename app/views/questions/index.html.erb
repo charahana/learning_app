@@ -1,23 +1,32 @@
-<h1>問題一覧</h1>
-<%= link_to "問題作成", new_question_path %>
-<table>
-  <thead>
-    <tr>
-      <th>問題</th>
-      <th>操作</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @questions.each do |question| %>
-      <tr>
-        <td><%= question.question_text %></td>
-        <td><%= question.category.name %></td>
-        <td>
-          <%= link_to "詳細", question_path(question) %>
-          <%= link_to "編集", edit_question_path(question) %>
-          <%= link_to "削除", question_path(question), method: :delete, data: { confirm: "削除しますか？" } %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>問題一覧</h2>
+    <%= link_to "問題作成", new_question_path, class: "btn btn-primary" %>
+  </div>
+  <div class="card shadow-sm">
+    <div class="card-body p-0">
+      <table class="table table-hover mb-0">
+        <thead class="thead-light">
+          <tr>
+            <th>問題</th>
+            <th>カテゴリ</th>
+            <th class="text-center">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @questions.each do |question| %>
+            <tr>
+              <td><%= truncate(question.question_text, length: 50) %></td>
+              <td><%= question.category.name %></td>
+              <td class="text-center">
+                <%= link_to "詳細", question_path(question), class: "btn btn-sm btn-outline-primary" %>
+                <%= link_to "編集", edit_question_path(question), class: "btn btn-sm btn-outline-success" %>
+                <%= link_to "削除", question_path(question), method: :delete, data: { confirm: "削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
