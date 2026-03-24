@@ -12,11 +12,11 @@
     <div class="form-row align-items-center mb-2">
       <div class="col-md-8">
         <%= cf.label :content, "選択肢" %>
-        <%= cf.text_field :content, class="form-control" %>
+        <%= cf.text_field :content, class: "form-control" %>
       </div>
       <div class="col-md-2 mt-4">
         <div class="form-check">
-          <%= cf.check_box, :is_correct, class: "form-check-input" %>
+          <%= cf.check_box :is_correct, class: "form-check-input" %>
           <%= cf.label :is_correct, "正解", class: "form-check-label" %>
         </div>
       </div>
