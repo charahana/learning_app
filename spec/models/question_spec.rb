@@ -2,18 +2,29 @@ require 'rails_helper'
 
 RSpec.describe Question, type: :model do
   describe 'バリデーション' do
-    it 'question_textがあれば有効' do
-      question = Question.new(question_text: "テスト問題")
+    let(:category) { Category.create(name: "テスト") }
+
+    it '全ての項目があれば有効' do
+      question = Question.new(
+        question_text: "テスト問題",
+        category: category
+      )
       expect(question).to be_valid
     end
 
     it 'question_textがなければ無効' do
-      question = Question.new(question_text: nil)
+      question = Question.new(
+        question_text: nil,
+        category: category
+      )
       expect(question).to be_invalid
     end
 
-    it 'category_idがなければ無効' do
-      question = Question.new(category_id: nil)
+    it 'categoryがなければ無効' do
+      question = Question.new(
+        question_text: "テスト問題",
+        category: nil
+      )
       expect(question).to be_invalid
     end
   end
