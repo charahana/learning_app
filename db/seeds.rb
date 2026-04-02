@@ -8,3 +8,18 @@
 Category.create(name: "ストラテジー")
 Category.create(name: "マネジメント")
 Category.create(name: "テクノロジー")
+
+category = Category.create!(name: "テクノロジ")
+
+question = Question.create!(
+  question_text: "CPUの役割は？",
+  category: category,
+  explanation: "中央処理装置です"
+)
+
+Choice.create!([
+  { content: "記憶装置", is_correct: false, question: question },
+  { content: "演算処理装置", is_correct: true, question: question },
+  { content: "入力装置", is_correct: false, question: question },
+  { content: "出力装置", is_correct: false, question: question }
+])
