@@ -5,21 +5,29 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Category.create(name: "ストラテジー")
-Category.create(name: "マネジメント")
-Category.create(name: "テクノロジー")
+strategy = Category.find_or_create_by!(name: "ストラテジー")
+management = Category.find_or_create_by!(name: "マネジメント")
+technology = Category.find_or_create_by!(name: "テクノロジー")
 
-category = Category.create!(name: "テクノロジ")
-
-question = Question.create!(
+question1 = Question.find_or_create_by!(
   question_text: "CPUの役割は？",
-  category: category,
-  explanation: "中央処理装置です"
-)
+  category: technology
+) do |q|
+  q.explanation = "中央処理装置です"
+end
 
-Choice.create!([
-  { content: "記憶装置", is_correct: false, question: question },
-  { content: "演算処理装置", is_correct: true, question: question },
-  { content: "入力装置", is_correct: false, question: question },
-  { content: "出力装置", is_correct: false, question: question }
-])
+Choice.find_or_create_by!(content: "記憶装置", question: question1) do |c|
+  c.is_correct = false
+end
+
+Choice.find_or_create_by!(content: "演算処理装置", question: question1) do |c|
+  c.is_correct = true
+end
+
+Choice.find_or_create_by!(content: "入力装置", question: question1) do |c|
+  c.is_correct = false
+end
+
+Choice.find_or_create_by!(content: "出力装置", question: question1) do |c|
+  c.is_correct = false
+end
