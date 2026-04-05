@@ -60,6 +60,30 @@ create_question(
 )
 
 create_question(
+  category: technology,
+  text: "IPアドレスの役割は？",
+  explanation: "ネットワーク上で機器を識別するための番号。",
+  choices: [
+    { content: "ユーザー名", is_correct: false },
+    { content: "機器識別番号", is_correct: true },
+    { content: "パスワード", is_correct: false },
+    { content: "アプリ名", is_correct: false }
+  ]
+)
+
+create_question(
+  category: technology,
+  text: "OSの役割は？",
+  explanation: "ハードウェアとソフトウェアを管理する。",
+  choices: [
+    { content: "データ保存", is_correct: false },
+    { content: "資源管理", is_correct: true },
+    { content: "電源供給", is_correct: false },
+    { content: "通信速度向上", is_correct: false }
+  ]
+)
+
+create_question(
   category: strategy,
   text: "SWOT分析のSは何？",
   explanation: "Strength（強み）を意味する。",
@@ -68,6 +92,30 @@ create_question(
     { content: "Strength", is_correct: true },
     { content: "System", is_correct: false },
     { content: "Service", is_correct: false }
+  ]
+)
+
+create_question(
+  category: strategy,
+  text: "市場分析で使われるフレームワークは？",
+  explanation: "3C分析が有名。",
+  choices: [
+    { content: "3C分析", is_correct: true },
+    { content: "5S", is_correct: false },
+    { content: "PDCA", is_correct: false },
+    { content: "OODA", is_correct: false }
+  ]
+)
+
+create_question(
+  category: strategy,
+  text: "競争優位の要因は？",
+  explanation: "他社との差別化が重要。",
+  choices: [
+    { content: "模倣", is_correct: false },
+    { content: "差別化", is_correct: true },
+    { content: "放置", is_correct: false },
+    { content: "削減のみ", is_correct: false }
   ]
 )
 
