@@ -1,12 +1,12 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_question, only: [:show, :edit, :update, :destroy]
 
   def index
     @questions = Question.all
   end
 
   def show
-    @question = Question.find(params[:id])
   end
 
   def new
@@ -24,12 +24,10 @@ class QuestionsController < ApplicationController
   end
 
   def edit
-    @question = Question.find(params[:id])
     (4 - @question.choices.size).times { @question.choices.build }
   end
 
   def update
-    @question = Question.find(params[:id])
     if @question.update(question_params)
       redirect_to @question
     else
@@ -38,7 +36,6 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    @question = Question.find(params[:id])
     @question.destroy
     redirect_to questions_path
   end
@@ -47,5 +44,9 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:question_text, :explanation)
+  end
+
+  def set_question
+    @question = Question.find(params[:id])
   end
 end
