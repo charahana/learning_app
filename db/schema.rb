@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2026_03_21_115342) do
     t.integer "user_id", null: false
     t.integer "question_id", null: false
     t.integer "choice_id", null: false
+    t.boolean "correct", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["choice_id"], name: "index_answers_on_choice_id"
@@ -32,7 +33,7 @@ ActiveRecord::Schema.define(version: 2026_03_21_115342) do
   create_table "choices", force: :cascade do |t|
     t.integer "question_id", null: false
     t.string "content"
-    t.boolean "is_correct", null: false
+    t.boolean "is_correct", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_choices_on_question_id"
@@ -51,6 +52,7 @@ ActiveRecord::Schema.define(version: 2026_03_21_115342) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "name", default: "", null: false
+    t.boolean "admin", default: false, null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

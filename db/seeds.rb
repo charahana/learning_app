@@ -5,6 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+User.create!(
+  email: "admin@example.com",
+  password: "password",
+  name: "管理者",
+  admin: true
+)
 puts "Seed開始..."
 
 strategy = Category.find_or_create_by!(name: "ストラテジー")
