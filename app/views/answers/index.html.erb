@@ -1,27 +1,27 @@
-<h1>回答履歴</h1>
-<table>
-  <thead>
-    <tr>
-      <th>問題</th>
-      <th>あなたの回答</th>
-      <th>正解</th>
-      <th>結果</th>
-    </tr>
-  </thead>
-  <tbody>
+<div class="container mt-5">
+  <h2 class="text-center mb-4">回答履歴</h2>
+  <% if @answers.any? %>
     <% @answers.each do |answer| %>
-      <tr>
-        <td><%= answer.question.question_text %></td>
-        <td><%= answer.selected_answer %></td>
-        <td><%= answer.question.correct_answer %></td>
-        <td>
-          <% if answer.selected_answer == answer.question.correct_answer %>
-            <span style="color: green;">正解</span>
+      <div class="card mb-3 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= answer.question.question_text %>
+          </h5>
+          <p>あなたの回答:<strong><%= answer.choice.content %></strong></p>
+          <p>正解:<strong><%= answer.question.choices.find_by(is_correct: true)&.content %></strong></p>
+          <% if answer.correct %>
+            <span class="badge bg-success">正解</span>
           <% else %>
-            <span style="color: red;">不正解</span>
+            <span class="badge bg-danger">不正解</span>
           <% end %>
-        </td>
-      </tr>
+          <p class="text-muted mt-2 mb-0">回答日時:<%= answer.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  <% else %>
+    <div class="text-center mt-5">
+      <p class="text-muted">まだ回答履歴がありません。<br>問題を解いてみよう!</p>
+      <%= link_to "問題一覧へ",questions_path, class: "btn btn-primary mt-3" %>
+    </div>
+  <% end %>
+</div>

@@ -1,4 +1,35 @@
-<h1>成績</h1>
-<p>回答数:<%= @total %></p>
-<p>正解数:<%= @correct %></p>
-<p>正答率:<%= @accuracy.to_i %></p>
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-body text-center">
+      <h2 class="mb-4">成績</h2>
+      <% if @total > 0 %>
+      <div class="mb-3">
+        <h5>回答数</h5>
+        <p class="fs-4 fw-bold"><%= @total %>問</p>
+      </div>
+      <div class="mb-3">
+        <h5>正解数</h5>
+        <p class="fs-4 fw-bold text-success"><%= @correct %>問</p>
+      </div>
+      <div class="mb-4">
+        <h5>正答率</h5>
+        <p class="fs-3 fw-bold text-primary"><%= @accuracy %>%</p>
+      </div>
+      <div class="progress" style="height: 30px;">
+        <div
+          class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+          role="progressbar"
+          style="width: <%= @accuracy %>%"
+          aria-valuenow="<%= @accuracy %>"
+          aria-valuemin="0"
+          aria-valuemax="100">
+          <%= @accuracy %>%
+        </div>
+      </div>
+      <% else %>
+        <p class="text-muted mt-4">まだ回答がありません。<br>問題にチャレンジしてみてください!</p>
+        <%= link_to "問題一覧へ", questions_path, class: "btn btn-primary mt-3" %>
+      <% end %>
+    </div>
+  </div>
+</div>
