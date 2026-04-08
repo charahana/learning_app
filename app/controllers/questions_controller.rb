@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :admin_only, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @questions = Question.all
@@ -19,6 +20,7 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to @question, notice: "作成しました"
     else
+      flash.now[:alert] = "作成出来ません"
       render :new
     end
   end
@@ -29,24 +31,34 @@ class QuestionsController < ApplicationController
 
   def update
     if @question.update(question_params)
-      redirect_to @question
+      redirect_to @question, notice: "更新しました"
     else
+      flash.now[:alert] = "更新出来ません"
       render :edit
     end
   end
 
   def destroy
-    @question.destroy
-    redirect_to questions_path
+    if @question.destroy
+      redirect_to questions_path, notice: "削除しました"
+    else
+      redirect_to questions_path, alert: "削除出来ません"
+    end
   end
 
   private
 
   def question_params
-    params.require(:question).permit(:question_text, :explanation)
+    params.require(:question).permit(:question_text, :explanation, choices_attributes: [:id, :content, :is_correct, :_destroy])
   end
 
   def set_question
     @question = Question.find(params[:id])
+  end
+
+  def admin_only
+    unless current_user.admin?
+      redirect_to questions_path, alert: "権限がありません"
+    end
   end
 end
