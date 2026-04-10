@@ -3,10 +3,7 @@ class Question < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :choices, dependent: :destroy
 
+  accepts_nested_attributes_for :choices, allow_destroy: true
+
   validates :question_text, presence: true
-  validates :choice1, presence: true
-  validates :choice2, presence: true
-  validates :choice3, presence: true
-  validates :choice4, presence: true
-  validates :correct_answer, presence: true
 end
