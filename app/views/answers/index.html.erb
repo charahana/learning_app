@@ -8,7 +8,7 @@
             <%= answer.question.question_text %>
           </h5>
           <p>あなたの回答:<strong><%= answer.choice.content %></strong></p>
-          <p>正解:<strong><%= answer.question.choices.find_by(is_correct: true)&.content %></strong></p>
+          <p>正解:<strong><%= answer.question.correct_choice&.content %></strong></p>
           <% if answer.correct? %>
             <span class="badge bg-success">正解</span>
           <% else %>
@@ -18,6 +18,9 @@
         </div>
       </div>
     <% end %>
+    <div class="text-center mt-4">
+      <%= paginate @answers %>
+    </div>
   <% else %>
     <div class="text-center mt-5">
       <p class="text-muted">まだ回答履歴がありません。<br>問題を解いてみよう!</p>
@@ -25,4 +28,3 @@
     </div>
   <% end %>
 </div>
-<%= paginate @answers %>
