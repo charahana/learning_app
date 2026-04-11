@@ -46,6 +46,16 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def random
+    answered_ids = current_user.answers.pluck(:question_id)
+    @question = Question.where.not(id: answered_ids).order("RANDOM()").first
+    if @question.nil?
+      @question = Question.order("RANDOM()").first
+    end
+    @user_answer = current_user.answers.find_by(question: @question)
+    render :show
+  end
+
   private
 
   def question_params
