@@ -20,4 +20,8 @@ class AnswersController < ApplicationController
   def answer_params
     params.require(:answer).permit(:choice_id)
   end
+
+  def result_message(answer)
+    answer.correct? ? "正解" : "不正解"
+  end
 end
