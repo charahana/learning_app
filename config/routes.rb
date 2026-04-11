@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :questions
-  resources :answers, only: [:create, :index]
+  resources :questions do
+    resources :answers, only: [:create]
+  end
+  
+  resources :answers, only: [:index]
 
   resource :score, only: [:show]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
