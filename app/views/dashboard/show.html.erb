@@ -1,0 +1,45 @@
+<div class="container mt-5">
+  <h2 class="mb-4 text-center">ダッシュボード</h2>
+  <div class="card mb-4">
+    <div class="card-body text-center">
+      <h4>総合成績</h4>
+      <p><%= @correct %> / <%= @total %> 問</p>
+    </div>
+  </div>
+  <div class="card mb-4">
+    <div class="card-body">
+      <h4>カテゴリ別成績</h4>
+      <% @category_status.each do |category| %>
+        <div class="mb-3">
+          <strong><%= category[:name] %></strong>
+          <div class="progress">
+            <div class="progress-bar" style="width: <%= category[:accuracy] %>%"> <%= category[:accuracy] %>%</div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="card mb-4">
+    <div class="card-body">
+      <h4>苦手分野</h4>
+      <% @weak_categories.each do |category| %>
+        <p><%= category[:name] %> (<%= category[:accuracy] %>%) </p>
+      <% end %>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h4>最近の回答</h4>
+      <% @recent_answers.each do |answer| %>
+        <p>
+          <%= answer.question.question_text %> -
+          <% if answer.correct? %>
+            <span class="text-success">正解</span>
+          <% else %>
+            <span class="text-danger">不正解</span>
+          <% end %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>
