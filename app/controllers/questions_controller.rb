@@ -53,6 +53,7 @@ class QuestionsController < ApplicationController
       @question = Question.order("RANDOM()").first
     end
     @user_answer = current_user.answers.find_by(question: @question)
+    render :show
   end
 
   private
