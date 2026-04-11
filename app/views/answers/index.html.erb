@@ -9,7 +9,7 @@
           </h5>
           <p>あなたの回答:<strong><%= answer.choice.content %></strong></p>
           <p>正解:<strong><%= answer.question.choices.find_by(is_correct: true)&.content %></strong></p>
-          <% if answer.correct %>
+          <% if answer.correct? %>
             <span class="badge bg-success">正解</span>
           <% else %>
             <span class="badge bg-danger">不正解</span>
@@ -25,3 +25,4 @@
     </div>
   <% end %>
 </div>
+<%= paginate @answers %>

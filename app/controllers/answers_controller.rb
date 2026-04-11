@@ -12,7 +12,7 @@ class AnswersController < ApplicationController
   end
 
   def index
-    @answers = current_user.answers.includes(:question, :choice)
+    @answers = current_user.answers.includes(question: :choices, :choice).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   private
