@@ -1,1 +1,70 @@
-<h1>トップページ</h1>
+<div class="container-fluid p-0">
+  <div class="text-center py-5 bg-light">
+    <h1 class="display-4 fw-bold">ITパスポート独自問題集</h1>
+    <p class="lead mt-3">空いている時間で効率よく学習をやって合格へ</p>
+    <% if user_signed_in? %>
+      <%= link_to "学習を始める", random_questions_path, class: "btn btn-primary btn-lg mt-3 me-2" %>
+      <%= link_to "自己分析", dashboard_path, class: "btn btn-outline-primary btn-lg mt-3" %>
+    <% else %>
+      <%= link_to "無料で始める", new_user_registration_path, class: "btn btn-success btn-lg mt-3 me-2" %>
+      <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-secondary btn-lg mt-3" %>
+    <% end %>
+  </div>
+  <div class="container mt-5">
+    <div class="row text-center">
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100 p-3">
+          <h4>問題演習</h4>
+          <p>ランダム出題で効率よく学習可能です</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100 p-3">
+          <h4>成績管理</h4>
+          <p>回答履歴や正答率を確認可能です</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100 p-3">
+          <h4>弱点分析</h4>
+          <p>苦手分野を把握して復習しよう</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if user_signed_in? %>
+    <div class="container mt-5">
+      <div class="card shadow">
+        <div class="card-body text-center">
+          <h4 class="mb-4">あなたの学習状況</h4>
+          <div class="row">
+            <div class="col-md-4">
+              <h6>回答数</h6>
+              <p class="fs-4 fw-bold"><%= @total %>問</p>
+            </div>
+            <div class="col-md-4">
+              <h6>正解数</h6>
+              <p class="fs-4 fw-bold text-success"><%= @correct %>問</p>
+            </div>
+            <div class="col-md-4">
+              <h6>正答率</h6>
+              <p class="fs-4 fw-bold text-primary"><%= @accuracy %>%</p>
+            </div>
+          </div>
+          <% if @weak_categories.present? %>
+            <div class="mt-4">
+              <h5 class="text-danger">苦手分野</h5>
+              <% @weak_categories.each do |category| %>
+                <p><%= category[:name] %> (<span class="text-danger"><%= category[:accuracy] %>%</span>)</p>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <div class="text-center mt-5 mb-5">
+    <%= link_to "問題を解く", random_questions_path, class: "btn btn-success btn-lg me-3" %>
+    <%= link_to "問題一覧", questions_path, class: "btn btn-outline-secondary btn-lg" %>
+  </div>
+</div>
