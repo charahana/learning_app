@@ -90,6 +90,11 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.6.2)
     erubi (1.13.1)
+    factory_bot (6.5.4)
+      activesupport (>= 6.1.0)
+    factory_bot_rails (6.5.0)
+      factory_bot (~> 6.5)
+      railties (>= 6.1.0)
     ffi (1.17.3)
     ffi (1.17.3-arm64-darwin)
     ffi (1.17.3-x86_64-darwin)
@@ -232,6 +237,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
     semantic_range (3.1.1)
+    shoulda-matchers (6.5.0)
+      activesupport (>= 5.2.0)
     spring (4.2.1)
     sprockets (4.2.2)
       concurrent-ruby (~> 1.0)
@@ -289,6 +296,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   devise
+  factory_bot_rails
   jbuilder (~> 2.7)
   kaminari
   listen (~> 3.3)
@@ -298,6 +306,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (>= 6)
   selenium-webdriver (>= 4.0.0.rc1)
+  shoulda-matchers
   spring (= 4.2.1)
   sqlite3 (~> 1.4)
   turbolinks (~> 5)

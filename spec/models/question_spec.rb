@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Question, type: :model do
   describe 'バリデーション' do
-    let(:category) { Category.create(name: "テスト") }
+    let(:category) { create(:category) }
 
-    it '全ての項目があれば有効' do
+    it '有効なデータであれば有効' do
       question = Question.new(
         question_text: "テスト問題",
         category: category
@@ -13,31 +13,20 @@ RSpec.describe Question, type: :model do
     end
 
     it 'question_textがなければ無効' do
-      question = Question.new(
-        question_text: nil,
-        category: category
-      )
-      expect(question).to be_invalid
+      question = Question.new(question_text: nil, category: category)
+      question.valid?
+      expect(question.errors[:question_text]).to be_present
     end
 
     it 'categoryがなければ無効' do
-      question = Question.new(
-        question_text: "テスト問題",
-        category: nil
-      )
-      expect(question).to be_invalid
+      question = Question.new(question_text: "テスト", category: nil)
+      question.valid?
+      expect(question.errors[:category]).to be_present
     end
   end
 
   describe 'アソシエーション' do
-    it 'choicesを複数持つ' do
-      assoc = described_class.reflect_on_association(:choices)
-      expect(assoc.macro).to eq :has_many
-    end
-
-    it 'categoryに属する' do
-      assoc = described_class.reflect_on_association(:category)
-      expect(assoc.macro).to eq :belongs_to
-    end
+    it { should have_many(:choices) }
+    it { should belong_to(:category) }
   end
 end
