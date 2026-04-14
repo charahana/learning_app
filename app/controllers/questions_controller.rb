@@ -59,7 +59,7 @@ class QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).permit(:question_text, :explanation, choices_attributes: [:id, :content, :is_correct, :_destroy])
+    params.require(:question).permit(:question_text, :explanation, :category_id, choices_attributes: [:id, :content, :is_correct, :_destroy])
   end
 
   def set_question

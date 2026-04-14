@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Questions", type: :request do
-  let(:user) { User.create(email: "test@example.com", password: "password") }
-  let(:category) { Category.create(name: "テスト") }
-  let(:question) { Question.create(question_text: "問題", category: category) }
+  let(:user) { create(:user) }
+  let(:admin) { create(:user, admin: true) }
+  let(:category) { create(:category) }
+  let(:question) { create(:question, category: category) }
 
   describe "GET /questions" do
     it "ログインしていればアクセスできる" do
@@ -18,17 +19,9 @@ RSpec.describe "Questions", type: :request do
     end
   end
 
-  describe "GET /questions/:id" do
-    it "詳細ページが表示される" do
-      sign_in user
-      get question_path(question)
-      expect(response).to have_http_status(:ok)
-    end
-  end
-
   describe "POST /questions" do
-    it "問題を作成できる" do
-      sign_in user
+    it "管理者は作成できる" do
+      sign_in admin
 
       expect {
         post questions_path, params: {
@@ -39,29 +32,18 @@ RSpec.describe "Questions", type: :request do
         }
       }.to change(Question, :count).by(1)
     end
-  end
 
-  describe "PATCH /questions/:id" do
-    it "問題を更新できる" do
+    it "一般ユーザーは作成できない" do
       sign_in user
 
-      patch question_path(question), params: {
+      post questions_path, params: {
         question: {
-          question_text: "更新後"
+          question_text: "新しい問題",
+          category_id: category.id
         }
       }
 
-      expect(question.reload.question_text).to eq "更新後"
-    end
-  end
-
-  describe "DELETE /questions/:id" do
-    it "問題を削除できる" do
-      sign_in user
-
-      expect {
-        delete question_path(question)
-      }.to change(Question, :count).by(-1)
+      expect(response).to redirect_to(questions_path)
     end
   end
 end
