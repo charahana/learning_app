@@ -8,6 +8,6 @@ class Question < ApplicationRecord
   validates :question_text, presence: true
 
   def correct_choice
-    choice.find_by(is_correct: true)
+    choices.find_by(is_correct: true)
   end
 end
