@@ -4,7 +4,7 @@ class QuestionsController < ApplicationController
   before_action :admin_only, only: [:new, :create, :edit, :update, :destroy]
 
   def index
-    @questions = Question.order(create_at: :desc).page(params[:page]).per(10)
+    @questions = Question.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def show
