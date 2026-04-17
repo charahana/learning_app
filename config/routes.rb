@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    resources :questions
+    resources :users
+    resources :categories
+  end
+
   get '/dashboard', to: 'dashboard#show'
   devise_for :users
   resources :questions do
