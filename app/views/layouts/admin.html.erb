@@ -3,16 +3,42 @@
   <head>
     <title>ITパスポート問題集(管理者)</title>
     <%= csrf_meta_tags %>
-    <&= csp_meta_tag %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_pack_tag 'application', media: 'all' %>
+    <%= javascript_pack_tag 'application' %>
   </head>
 
   <body>
-    <nav>
-      <%= link_to "問題管理", admin_questions_path %>
-      <%= link_to "ユーザー管理", admin_users_path %>
-      <%= link_to "カテゴリ管理", admin_categories_path %>
-    </nav>
-    <hr>
-    <%= yield %>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-dark sidebar min-vh-100">
+          <div class="position-sticky pt-3">
+            <h5 class="text-white text-center">管理画面</h5>
+            <ul class="nav flex-column mt-4">
+              <li class="nav-item">
+                <%= link_to "問題管理", admin_questions_path, class: "nav-link text-white" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "ユーザー管理", admin_users_path, class: "nav-link text-white" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "カテゴリ管理", admin_categories_path, class: "nav-link text-white" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "トップへ戻る", root_path, class: "nav-link text-warning" %>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+          <% flash.each do |key, message| %>
+            <div class="alert alert-<%= key == "notice" ? "success" : "danger" %>">
+              <%= message %>
+            </div>
+          <% end %>
+          <%= yield %>
+        </main>
+      </div>
+    </div>
   </body>
 </html>
