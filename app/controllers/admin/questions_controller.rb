@@ -1,13 +1,11 @@
 class Admin::QuestionsController < Admin::BaseController
-  before_action :authenticate_user!
-  before_action :admin_only
+  before_action :set_question, only: [:show, :edit, :update, :destroy]
 
   def index
     @questions = Question.all.order(created_at: :desc)
   end
 
   def show
-    @question = Question.find(params[:id])
   end
 
   def new
@@ -26,11 +24,9 @@ class Admin::QuestionsController < Admin::BaseController
   end
 
   def edit
-    @question = Question.find(params[:id])
   end
 
   def update
-    @question = Question.find(params[:id])
     if @question.update(question_params)
       redirect_to admin_question_path(@question), notice: "更新しました"
     else
@@ -46,8 +42,8 @@ class Admin::QuestionsController < Admin::BaseController
 
   private
 
-  def admin_only
-    redirect_to root_path, alert: "権限がありません" unless current_user.admin?
+  def set_question
+    @question = Question.find(params[:id])
   end
 
   def question_params
