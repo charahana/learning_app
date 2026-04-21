@@ -3,7 +3,8 @@ class AnswersController < ApplicationController
 
   def create
     @question = Question.find(params[:question_id])
-    @answer = current_user.answers.build(question: @question, choice_id: answer_params[:choice_id])
+    choice = @question.choices.find(answer_params[:choice_id])
+    @answer = current_user.answers.build(question: @question, choice: choice)
     if @answer.save
       redirect_to @question, notice: "回答しました"
     else
