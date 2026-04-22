@@ -36,8 +36,8 @@ class Admin::QuestionsController < Admin::BaseController
   end
 
   def destroy
-    Question.find(params[:id]).destroy
-    redirect_to admin_question_path, notice: "削除しました"
+    @question.destroy
+    redirect_to admin_questions_path, notice: "削除しました"
   end
 
   private
