@@ -6,6 +6,6 @@ class Admin::BaseController < ApplicationController
   private
 
   def admin_only
-    redirect_to root_path, alert: "権限がありません" unless current_user.admin?
+    redirect_to root_path, alert: "管理者権限が必要です" unless current_user.admin?
   end
 end
