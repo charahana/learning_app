@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :answers, only: [:create]
     collection do
       get :random
+      get :weak
     end
   end
   
