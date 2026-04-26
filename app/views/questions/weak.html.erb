@@ -1,0 +1,12 @@
+<h2>苦手問題</h2>
+<% if @questions.any? %>
+  <ul>
+    <% @questions.each do |question| %>
+      <li>
+        <%= link_to question.question_text, question_path(question) %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>苦手問題はありません！</p>
+<% end %>
