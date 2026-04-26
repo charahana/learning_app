@@ -56,6 +56,10 @@ class QuestionsController < ApplicationController
     render :show
   end
 
+  def weak
+    @questions = Question.joins(answers: :choice).where(answers: { user_id: current_user.id }).where(choices: { is_correct: false }).distinct
+  end
+
   private
 
   def question_params

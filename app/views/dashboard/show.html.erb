@@ -53,6 +53,7 @@
       <h4>苦手分野</h4>
       <% @weak_categories.each do |category| %>
         <p><%= category[:name] %> (<%= category[:accuracy] %>%) </p>
+        <p><%= link_to "苦手問題へ", weak_questions_path, class: "btn btn-danger" %>
       <% end %>
     </div>
   </div>
