@@ -1,0 +1,9 @@
+<h1>ユーザー詳細</h1>
+
+<p>ID: <%= @user.id %></p>
+<p>名前: <%= @user.name %></p>
+<p>Email: <%= @user.email %></p>
+<p>管理者: <%= @user.admin? ? "はい" : "いいえ" %></p>
+
+<%= link_to "編集", edit_admin_user_path(@user) %> |
+<%= link_to "一覧に戻る", admin_users_path %>
