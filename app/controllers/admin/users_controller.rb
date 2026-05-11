@@ -46,7 +46,7 @@ class Admin::UsersController < Admin::BaseController
   private
 
   def user_params
-    parmitted = [:email, :name, :admin]
+    permitted = [:email, :name, :admin]
     if params[:user][:password].present?
       permitted += [:password, :password_confirmation]
     end
